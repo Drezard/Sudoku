@@ -4,7 +4,7 @@ function pressed() {
   button.classList.add('hidden');
   secretbox.classList.remove('hidden');
   generateGameField()
-
+  fillUpField();
 }
 button.addEventListener('click', pressed);
 
@@ -16,6 +16,27 @@ function getRandomIntInclusive(min, max) {
 
 const cells = [];
 const possibleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+
+function getNumberForCell(colIndex, rowIndex, sqrIndex) {
+  const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
+  const numbersInColumn = cells.filter((item) => item.col === colIndex).map((item) => item.number);
+
+  const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number); 
+  
+  const numberList = possibleNumbers.filter((numb) => {
+    return !(numbersInRow.includes(numb) || numbersInColumn.includes(numb) || numbersInSqr.includes(numb));
+  })
+
+  const rand = getRandomIntInclusive(0, numberList.length - 1);
+  console.log(numberList, rand, numberList[rand]);
+
+  const number = numberList[rand]; //generate
+
+  return number;
+}
+
+
 
 function generateGameField() {
 
@@ -29,33 +50,13 @@ function generateGameField() {
       cellElement.classList.add('cell');
       gameField.append(cellElement);
 
-      const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
-      const numbersInColumn = cells.filter((item) => item.col === colIndex).map((item) => item.number);
-
-
       const sqrIndex = Math.floor(colIndex / 3) + Math.floor(rowIndex / 3) * 3;
-
-      // const numbersInColumnAndRow = cells.filter((item) => item.col&row === colIndex).map((item) => item.number)
-      const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number); 
-      
-      const numberList = possibleNumbers.filter((numb) => {
-        return !(numbersInRow.includes(numb) || numbersInColumn.includes(numb) || numbersInSqr.includes(numb));
-      })
-
-      const rand = getRandomIntInclusive(0, numberList.length - 1);
-      console.log(numberList, rand, numberList[rand]);
-
-      const number = numberList[rand]; //generate
-
-
-      cellElement.textContent = number;
-
       const cell = {
         row: rowIndex,
         sqr: sqrIndex,
         col: colIndex,
         el: cellElement,
-        number: number,
+        number: '',
         isShowed: true,
       };
       
@@ -64,4 +65,22 @@ function generateGameField() {
 
     }
   }
+}
+
+function fillUpField() {  
+  for (let i = 0; i < 17; i += 1) {
+    const col = getRandomIntInclusive(0, 8);
+    const row = getRandomIntInclusive(0, 8);
+
+  
+
+    const cell = cells.find((cell) => cell.col === col && cell.row === row);
+
+    const number = getNumberForCell();
+  
+
+    cell.number = number;
+    cell.el.innerText = number;
+  }
+
 }
