@@ -22,8 +22,8 @@ function getNumberForCell(colIndex, rowIndex, sqrIndex) {
   const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
   const numbersInColumn = cells.filter((item) => item.col === colIndex).map((item) => item.number);
 
-  const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number); 
-  
+  const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number);
+
   const numberList = possibleNumbers.filter((numb) => {
     return !(numbersInRow.includes(numb) || numbersInColumn.includes(numb) || numbersInSqr.includes(numb));
   })
@@ -56,10 +56,10 @@ function generateGameField() {
         sqr: sqrIndex,
         col: colIndex,
         el: cellElement,
-        number: '',
+        number: 0,
         isShowed: true,
       };
-      
+
       cells.push(cell);
 
 
@@ -67,17 +67,21 @@ function generateGameField() {
   }
 }
 
-function fillUpField() {  
+function fillUpField() {
   for (let i = 0; i < 17; i += 1) {
     const col = getRandomIntInclusive(0, 8);
     const row = getRandomIntInclusive(0, 8);
 
-  
-
     const cell = cells.find((cell) => cell.col === col && cell.row === row);
 
-    const number = getNumberForCell();
-  
+    if (cell.number !== 0) {
+      i -= 1;
+      continue;
+    }
+
+    const number = getNumberForCell(cell.col, cell.row, cell.sqr);
+    console.log(i, col, row, cell, number);
+
 
     cell.number = number;
     cell.el.innerText = number;
