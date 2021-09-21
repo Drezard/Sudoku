@@ -50,6 +50,9 @@ function generateGameField() {
       cellElement.classList.add('cell');
       gameField.append(cellElement);
 
+      const inputElement = document.createElement('input');
+      cellElement.append(inputElement);
+
       const sqrIndex = Math.floor(colIndex / 3) + Math.floor(rowIndex / 3) * 3;
       const cell = {
         row: rowIndex,
@@ -61,11 +64,10 @@ function generateGameField() {
       };
 
       cells.push(cell);
-
-
     }
   }
 }
+
 
 function fillUpField() {
   for (let i = 0; i < 17; i += 1) {
@@ -78,13 +80,10 @@ function fillUpField() {
       i -= 1;
       continue;
     }
-
     const number = getNumberForCell(cell.col, cell.row, cell.sqr);
     console.log(i, col, row, cell, number);
-
 
     cell.number = number;
     cell.el.innerText = number;
   }
-
 }
