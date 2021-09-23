@@ -113,6 +113,6 @@ function check() {
     const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number);
     if (!checkArrayWithUniqNumbers(numbersInSqr)) return false;
   }
-
+  
   return true;
 }
