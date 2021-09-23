@@ -86,4 +86,33 @@ function fillUpField() {
     cell.number = number;
     cell.el.innerText = number;
   }
+
+}
+
+function checkArrayWithUniqNumbers(a) {
+  if ((new Set(a)).length === a.length) return true;
+  return false;
+}
+
+function check() {
+  for (const cell of cells) {
+    if (cell.number === 0) return false;
+  }
+
+  for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
+    const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
+    if (!checkArrayWithUniqNumbers(numbersInRow)) return false;
+  }
+
+  for (let colIndex = 0; colIndex <= 8; colIndex++) {
+    const numbersInCol = cells.filter((item) => item.col === colIndex).map((item) => item.number);
+    if (!checkArrayWithUniqNumbers(numbersInCol)) return false;
+  }
+
+  for (let sqrIndex = 0; sqrIndex <= 8; sqrIndex++) {
+    const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number);
+    if (!checkArrayWithUniqNumbers(numbersInSqr)) return false;
+  }
+
+  return true;
 }
