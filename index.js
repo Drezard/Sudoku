@@ -103,7 +103,7 @@ function check() {
     const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
     if (!checkArrayWithUniqNumbers(numbersInRow)) return false;
   }
-
+    
   for (let colIndex = 0; colIndex <= 8; colIndex++) {
     const numbersInCol = cells.filter((item) => item.col === colIndex).map((item) => item.number);
     if (!checkArrayWithUniqNumbers(numbersInCol)) return false;
