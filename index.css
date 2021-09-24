@@ -3,17 +3,138 @@
 }
 
 .cell {
-    border: 1px solid black;
+    border: 1px solid rgb(230, 87, 87) ;
+    border-radius: 3px;
+    border-color:#ed0200;
+    font-size: 23px;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: aliceblue;
+    
+}
+.cell:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 100%;
+    z-index: -1;
+    color: white;
+    border-color: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082);
+    transition: .8s cubic-bezier(.165, .84, .44, 1);
+  }
+  .cell:hover {
+    border-color: rgba(255, 255, 255, 0);
+  }
+  .cell:hover:before {
+    bottom: 0%;
+    top: auto;
+    height: 100%;
+  }
+
+
+
+.user-win .cell {
+    border: 1px solid rgb(87, 230, 151);
+    border-color:#00ed63;
+    color: aliceblue;
+
 }
 
 div#gameField {
     display: grid;
-    grid-template-columns: repeat(9, 20px);
-    grid-template-rows: repeat(9, 20px);
-    grid-gap: 4px;
-}
+    grid-template-columns: repeat(9, 30px);
+    grid-template-rows: repeat(9, 30px);
+    grid-gap: 7px;
+    
+    border-radius: 10px;}
     
 input  {
-    border: 1px;
-    width: 12px;
+ border: 0ch;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    background-color:   #1D1B26;
+   color: aliceblue;
+    
+    
+    
+}
+.button {
+    width: 20%;
+    height: 5%;
+    justify-content: center;
+    display: grid;
+    margin: 10px;
+    background: #1D1B26;
+}
+.button {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  position: relative;
+  padding: 15px 30px;
+  border: 1px solid;
+  border-image: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082);
+  border-image-slice: 1;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  overflow: hidden;
+  letter-spacing: 2px;
+  transition: .8s cubic-bezier(.165, .84, .44, 1);
+}
+.button:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 0;
+  width: 100%;
+  z-index: -1;
+  color: white;
+  background: linear-gradient(180deg, #ff3000, #ed0200, #ff096c, #d50082);
+  transition: .8s cubic-bezier(.165, .84, .44, 1);
+}
+.button:hover {
+  background: rgba(255, 255, 255, 0);
+}
+.button:hover:before {
+  bottom: 0%;
+  top: auto;
+  height: 100%;
+}
+
+
+body {
+    background-color: #1D1B26;
+	width: 100vw;
+	height: 100vh;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-flow: column;
+	
+
+	font-family: "Lato", sans-serif;
+	
+	
+}
+
+.cell[data-row="0"], .cell[data-row="3"], .cell[data-row="6"] {
+    border-top-width: 4px;
+}
+
+.cell[data-row="2"], .cell[data-row="5"], .cell[data-row="8"] {
+    border-bottom-width: 4px;
+}
+.cell[data-col="0"], .cell[data-col="3"], .cell[data-col="6"]{
+    border-left-width: 4px;
+}
+.cell[data-col="2"], .cell[data-col="5"], .cell[data-col="8"] {
+    border-right-width: 4px;
 }

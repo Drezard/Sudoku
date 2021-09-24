@@ -1,12 +1,19 @@
 const button = document.querySelector('#press');
 const secretbox = document.querySelector('#tabl');
+const btncheck = document.querySelector('#btncheck');
 function pressed() {
   button.classList.add('hidden');
+  button.classList.remove('button');
   secretbox.classList.remove('hidden');
-  generateGameField()
+  btncheck.classList.remove('hidden');
+  btncheck.classList.add('button');
+  generateGameField();
   fillUpField();
+  // fillUpFieldDEbugOnly();
 }
+
 button.addEventListener('click', pressed);
+btncheck.addEventListener('click', check);
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -17,6 +24,14 @@ function getRandomIntInclusive(min, max) {
 const cells = [];
 const possibleNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+
+function fillUpFieldDEbugOnly() {
+  const testMatrix = [2, 4, 8, 5, 1, 7, 3, 6, 9, 5, 9, 3, 2, 6, 4, 8, 1, 7, 1, 6, 7, 9, 8, 3, 2, 4, 5, 6, 3, 2, 1, 4, 5, 7, 9, 8, 4, 7, 1, 3, 9, 8, 6, 5, 2, 9, 8, 5, 6, 7, 2, 1, 3, 4, 3, 2, 6, 7, 5, 9, 4, 8, 1, 7, 5, 4, 8, 3, 1, 9, 2, 6, 8, 1, 9, 4, 2, 6, 5, 7, 3];
+  for (const cell of cells) {
+    cell.number = testMatrix[rowIndex * rowNumber + colIndex];
+    cell.el.innerText = cell.number;
+  }
+}
 
 function getNumberForCell(colIndex, rowIndex, sqrIndex) {
   const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
@@ -64,10 +79,11 @@ function generateGameField() {
       };
 
       cells.push(cell);
+      cell.el.dataset.row = rowIndex;
+      cell.el.dataset.col = colIndex;
     }
   }
 }
-
 
 function fillUpField() {
   for (let i = 0; i < 17; i += 1) {
@@ -85,12 +101,13 @@ function fillUpField() {
 
     cell.number = number;
     cell.el.innerText = number;
+
   }
 
 }
 
 function checkArrayWithUniqNumbers(a) {
-  if ((new Set(a)).length === a.length) return true;
+  if ((new Set(a)).size === a.length) return true;
   return false;
 }
 
@@ -103,7 +120,7 @@ function check() {
     const numbersInRow = cells.filter((item) => item.row === rowIndex).map((item) => item.number);
     if (!checkArrayWithUniqNumbers(numbersInRow)) return false;
   }
-    
+
   for (let colIndex = 0; colIndex <= 8; colIndex++) {
     const numbersInCol = cells.filter((item) => item.col === colIndex).map((item) => item.number);
     if (!checkArrayWithUniqNumbers(numbersInCol)) return false;
@@ -113,6 +130,7 @@ function check() {
     const numbersInSqr = cells.filter((item) => item.sqr === sqrIndex).map((item) => item.number);
     if (!checkArrayWithUniqNumbers(numbersInSqr)) return false;
   }
-  
+
+  document.body.classList.add('user-win');
   return true;
 }
